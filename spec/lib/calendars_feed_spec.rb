@@ -1,23 +1,19 @@
-require 'lib/calendars_feed'
-require 'lib/author'
-
-require 'rubygems'
-require 'libxml'
+require File.dirname(__FILE__) + '/../spec_helper'
 
 describe "#new" do
-  it "should accept xml" do
-    CalendarsFeed.new("<x>stuff</x>").should_not be_nil
-  end
-  
   it "should read a calendar" do
-    CalendarsFeed.new(IO.read("spec/fixtures/feeds/smallcalendars.xml")).should_not be_nil
+    CalendarsFeed.file("spec/fixtures/feeds/smallcalendars.xml").should_not be_nil
   end
 
+  it "should be a subclass of AtomFeed" do
+    CalendarsFeed.superclass.should == AtomFeed
+  end
+  
 end
 
 describe "basic atom elements" do
   before(:all) do
-    @calendars = CalendarsFeed.new(IO.read("spec/fixtures/feeds/smallcalendars.xml"))
+    @calendars = CalendarsFeed.file("spec/fixtures/feeds/smallcalendars.xml")
   end
   
   it "should have a #title for the feed" do
@@ -57,13 +53,25 @@ describe "basic atom elements" do
   
   it "should have #entries" do
     @calendars.entries.size.should == 1
-  end  
+  end
+
+end
+
+describe "GData Elements" do
+  before(:all) do
+    @calendars = CalendarsFeed.file("spec/fixtures/feeds/allcalendars.xml")
+  end
+  
+  it "should have #calendar_feeds" do
+    @calendars.calendar_feeds.size.should == 11
+  end
+  
   
 end
 
 describe "links" do
   before(:all) do
-    @calendars = CalendarsFeed.new(IO.read("spec/fixtures/feeds/smallcalendars.xml"))
+    @calendars = CalendarsFeed.file("spec/fixtures/feeds/smallcalendars.xml")
   end
   
   it "should have an alternate link" do
