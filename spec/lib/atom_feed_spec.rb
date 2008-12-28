@@ -1,8 +1,8 @@
 require 'spec/spec_helper'
 
-describe AtomFeed do
+describe Atom::Feed do
   before(:all) do
-    @feed = AtomFeed.file('spec/fixtures/feeds/smallcalendars.xml')
+    @feed = Atom::Feed.file('spec/fixtures/feeds/smallcalendars.xml')
   end
   
   it "should have a default namespace of atom" do
@@ -11,7 +11,7 @@ describe AtomFeed do
   
   describe "basic atom elements" do
     before(:all) do
-      @feed = AtomFeed.file("spec/fixtures/feeds/smallcalendars.xml")
+      @feed = Atom::Feed.file("spec/fixtures/feeds/smallcalendars.xml")
     end
 
     it "should have a #title for the feed" do
@@ -37,7 +37,7 @@ describe AtomFeed do
      describe "author" do
        it "should have author" do
          @feed.author.should_not be_nil
-         @feed.author.should == Author.new(@feed.author_name,@feed.author_email)
+         @feed.author.should == %(Calendar Maven\n    calendar.maven@gmail.com)
        end
    
        it "should have author_name" do

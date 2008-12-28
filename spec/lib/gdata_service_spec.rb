@@ -1,7 +1,4 @@
-require 'lib/gdata_service'
-require 'net/https'
-
-# require File.dirname(__FILE__) + '/../spec_helper'
+require File.dirname(__FILE__) + '/../spec_helper'
 
 describe Service do
   

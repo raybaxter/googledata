@@ -1,7 +1,6 @@
 require 'rubygems'
 require 'libxml'
 
-
-class CalendarFeed < AtomFeed
+class CalendarFeed < Atom::Feed
   
 end
