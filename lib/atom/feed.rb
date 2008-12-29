@@ -39,18 +39,31 @@ module Atom
     #    The "atom:summary" Element
     #    The "atom:title" Element
     #    The "atom:updated" Element
-
+    
     NAMESPACES =  %w[ atom:http://www.w3.org/2005/Atom ]  
-    SIMPLE_ATOM_ELEMENTS = %w[ title subtitle updated generator author]
-    COMPOUND_ATOM_ELEMENTS = {
-      :links => {:xpath => "//atom:feed/atom:link"}
-    }
-    ALIASED_ATOM_ELEMENTS = {
-      :atom_id => { :xpath => '//atom:feed/atom:id'},
-      :author_name => {:xpath => '//atom:feed/atom:author/atom:name'},
-      :author_email => {:xpath => '//atom:feed/atom:author/atom:email'},
-    }
 
+    ELEMENT_DEFAULTS = {:type => :simple, :xpath => "//atom:feed/atom:$KEY$", :link? => false}
+
+    ELEMENTS = {
+      :atom_id        => { :xpath => '//atom:feed/atom:id'},
+      :title          => {},
+      :subtitle       => {},
+      :updated        => {},
+      :generator      => {},
+      :author         => {},
+      :links          => {:type => :compound, :xpath => "//atom:feed/atom:link"},
+      :entries        => {:type => :compound, :xpath => "//atom:feed/atom:entry"},
+      
+      :author_name    => {:xpath => '//atom:feed/atom:author/atom:name'},
+      :author_email   => {:xpath => '//atom:feed/atom:author/atom:email'},
+      
+      :alternate_link => {:type => :compound, :xpath => '//atom:feed/atom:link[@rel=\"alternate\"]', :attribute => "href"}, 
+      :feed_link      => {:type => :compound, :xpath => '//atom:feed/atom:link[@rel=\"http://schemas.google.com/g/2005#feed\"]', :attribute => "href"},
+      :post_link      => {:type => :compound, :xpath => '//atom:feed/atom:link[@rel=\"http://schemas.google.com/g/2005#post\"]', :attribute => "href"},
+      :self_link      => {:type => :compound, :xpath => '//atom:feed/atom:link[@rel=\"self\"]', :attribute => "href"},
+        
+    }
+    
     attr_reader :document
 
     def self.file(file_name)
@@ -59,42 +72,37 @@ module Atom
 
     def initialize(document)
       @document = document
-
-      define_elements(SIMPLE_ATOM_ELEMENTS)
-      define_aliased_elements(ALIASED_ATOM_ELEMENTS)
-      define_compound_elements(COMPOUND_ATOM_ELEMENTS)
+      define_element_accessors(ELEMENTS)
     end
 
-    def define_elements(element_set)
-      element_set.each do |name|
-        eval(%{
-          def #{name}
-            extract_content('//atom:feed/atom:#{name}')
-          end
-        })
-      end
-    end
-
-    def define_compound_elements(element_set)
-      element_set.each_key do |name|
+    def define_element_accessors(elements)
+      elements.each do |name, overrides|
+        values = ELEMENT_DEFAULTS.merge(overrides)
         eval(%{
           def #{name.to_s}
-            extract('#{element_set[name][:xpath]}')
+            #{method_for_element(name,values)}
           end
         })
       end
     end
-
-    def define_aliased_elements(element_set)
-      element_set.each_key do |name|
-        eval(%{
-          def #{name.to_s}
-            extract_content('#{element_set[name][:xpath]}')
-          end
-        })
-      end
-    end  
-
+        
+        
+    def method_for_element(name,values)
+      "#{extract_method(values[:type])}(\"#{xpath_for_element(name,values[:xpath])}\")#{xpath_for_attribute(values[:attribute])}"
+    end
+    
+    def xpath_for_element(name,xpath)
+      xpath.gsub(/\$KEY\$/,name.to_s)      
+    end
+                        
+    def xpath_for_attribute(attribute)
+      attribute ? ".first.attributes[\"#{attribute}\"]" : ''
+    end
+    
+    def extract_method(type)
+      type == :compound ? 'extract' : 'extract_content'
+    end
+    
     def value
       content
     end
@@ -102,31 +110,7 @@ module Atom
     def value=(string)
       content = string
     end  
-
-    def alternate_link
-      extract("//atom:feed/atom:link[@rel='alternate']").first.attributes['href']
-    end
-
-    def feed_link
-      extract("//atom:feed/atom:link[@rel='http://schemas.google.com/g/2005#feed']").first.attributes['href']    
-    end
-
-    def post_link
-      extract("//atom:feed/atom:link[@rel='http://schemas.google.com/g/2005#post']").first.attributes['href']
-    end
-
-    def self_link
-      extract("//atom:feed/atom:link[@rel='self']").first.attributes['href']
-    end
-
-    def author
-      @author ||= Author.new(author_name,author_email)
-    end
-
-    def entries
-      extract("//atom:feed/atom:entry")
-    end
-
+    
     def extract(xpath)
       xtract = @document.find(xpath, NAMESPACES) 
       (xtract.nil? or xtract.empty?) ? [XML::Node.new('')] : xtract

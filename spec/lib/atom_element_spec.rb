@@ -2,7 +2,7 @@ require 'spec/spec_helper'
 
 describe "Atom::Element" do
   before(:each) do
-    @element = Atom::Element.new("name",'1234')
+    @element = Atom::Element.new("name", '<id>1234</id>')
   end
   
   it "should be initialized with an XML::Node" do
@@ -10,7 +10,7 @@ describe "Atom::Element" do
   end
   
   it "should have a #value that returns the content of the node" do
-    @element.value.should == '1234'
+    @element.value.should == '<id>1234</id>'
   end  
   
   it "should have a default namespace of atom" do
