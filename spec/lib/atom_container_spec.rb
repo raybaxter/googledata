@@ -1,8 +1,8 @@
 require 'spec/spec_helper'
 
-describe Atom::Feed do
+describe Atom::Container do
   before(:all) do
-    @feed = Atom::Feed.file('spec/fixtures/feeds/smallcalendars.xml')
+    @feed = Atom::Container.file('spec/fixtures/feeds/smallcalendars.xml')
   end
   
   it "should have a default namespace of atom" do
@@ -11,7 +11,7 @@ describe Atom::Feed do
   
   describe "basic atom elements" do
     before(:all) do
-      @feed = Atom::Feed.file("spec/fixtures/feeds/smallcalendars.xml")
+      @feed = Atom::Container.file("spec/fixtures/feeds/smallcalendars.xml")
     end
 
     it "should have a #title for the feed" do
@@ -61,7 +61,7 @@ describe Atom::Feed do
    
   describe "links" do
     before(:all) do
-      @feed = Atom::Feed.file("spec/fixtures/feeds/smallcalendars.xml")
+      @feed = Atom::Container.file("spec/fixtures/feeds/smallcalendars.xml")
     end
 
     it "should have an alternate link" do

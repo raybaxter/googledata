@@ -1,6 +1,6 @@
 require 'lib/calendar_feed'
 
-class CalendarsFeed < Atom::Feed
+class CalendarsFeed < Atom::Container
   NAMESPACES =  %w[ atom:http://www.w3.org/2005/Atom 
                     opensearch:http://a9.com/-/spec/opensearchrss/1.0/
                     gcal:http://schemas.google.com/gCal/2005

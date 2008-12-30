@@ -6,7 +6,7 @@ describe "#new" do
   end
 
   it "should be a subclass of AtomFeed" do
-    CalendarsFeed.superclass.should == Atom::Feed
+    CalendarsFeed.superclass.should == Atom::Container
   end
 end
 

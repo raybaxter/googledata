@@ -2,7 +2,7 @@ require 'rubygems'
 require 'libxml'
 
 module Atom
-  class Feed 
+  class Container
     include LibXML
 
     # Container Elements
@@ -85,7 +85,6 @@ module Atom
         })
       end
     end
-        
         
     def method_for_element(name,values)
       "#{extract_method(values[:type])}(\"#{xpath_for_element(name,values[:xpath])}\")#{xpath_for_attribute(values[:attribute])}"

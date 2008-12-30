@@ -5,7 +5,7 @@ describe CalendarFeed do
     @calendar_feed = CalendarFeed.file('spec/fixtures/feeds/calendar.maven.xml')
   end
   it "should inherit from Element" do
-    CalendarFeed.superclass.should == Atom::Feed
+    CalendarFeed.superclass.should == Atom::Container
   end
     
   describe "Atom properties" do
