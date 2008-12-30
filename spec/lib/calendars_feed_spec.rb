@@ -33,9 +33,7 @@ describe "basic atom elements" do
 
   describe "author" do
     it "should have author" do
-      pending "Author is composite"
       @calendars.author.should_not be_nil
-      @calendars.author.should == Author.new(@calendars.author_name,@calendars.author_email)
     end
     
     it "should have author_name" do
