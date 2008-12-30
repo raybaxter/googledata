@@ -1,4 +1,5 @@
 require 'spec/spec_helper'
+require 'spec/lib/atom/common_elements'
 
 describe "Atom::Element" do
   before(:each) do
@@ -16,6 +17,9 @@ describe "Atom::Element" do
   it "should have a default namespace of atom" do
     @element.namespaces.namespace.should == LibXML::XML::Namespace.new(LibXML::XML::Node.new("stuff"),'','http://www.w3.org/2005/Atom')
   end
+  
+  it_should_behave_like "common Atom elements"
+  
   
 end
   
