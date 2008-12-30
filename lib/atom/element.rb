@@ -60,13 +60,12 @@ module Atom
       content
     end
 
-    # def value=(string)
-    #   content = string
-    # end  
-
     def define_element_accessors(elements)
       elements.each do |name, overrides|
         values = ELEMENT_DEFAULTS.merge(overrides)
+        if name == :category_scheme and false
+          p method_for_element(name,values)
+        end
         eval(%{
           def #{name.to_s}
             #{method_for_element(name,values)}

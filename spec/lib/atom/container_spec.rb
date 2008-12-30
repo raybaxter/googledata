@@ -37,25 +37,29 @@ describe Atom::Container do
     end  
   end 
   
-  it "should have a #category" do
-    events_feed = Atom::Container.file('spec/fixtures/feeds/calendar.maven.xml')
-    events_feed.category.should_not be_nil
-  end
-
-  it "should have a #category_scheme" do
-    events_feed = Atom::Container.file('spec/fixtures/feeds/calendar.maven.xml')
-    events_feed.category_scheme.should == 'http://schemas.google.com/g/2005#kind'
-  end
-
-  it "should have a #category_term" do
-    events_feed = Atom::Container.file('spec/fixtures/feeds/calendar.maven.xml')
-    events_feed.category_term.should == 'http://schemas.google.com/g/2005#event'
-  end
-  
   it "should have a #subtitle" do
     events_feed = Atom::Container.file('spec/fixtures/feeds/calendar.maven.xml')
     events_feed.subtitle.should == 'Calendar Maven'
   end
+
+  describe "category" do
+    before(:each) do
+      @events_feed = Atom::Container.file('spec/fixtures/feeds/calendar.maven.xml')
+    end
+ 
+    it "should have a #category" do
+      @events_feed.category.should_not be_nil
+    end
+
+    it "should have a #category_scheme" do
+      @events_feed.category_scheme.should == 'http://schemas.google.com/g/2005#kind'
+    end
+
+    it "should have a #category_term" do
+      @events_feed.category_term.should == 'http://schemas.google.com/g/2005#event'
+    end
+
+  end  
   
    
 end

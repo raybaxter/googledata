@@ -68,13 +68,12 @@ module Atom
     end
     
     def initialize(document)
-      elements = ELEMENTS.merge(local_elements)
       @document = document
-      define_element_accessors(elements)
+      define_element_accessors(local_elements)
     end
     
     def local_elements
-      {}
+      ELEMENTS
     end
         
   end
