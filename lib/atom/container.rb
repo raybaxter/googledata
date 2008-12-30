@@ -1,9 +1,6 @@
-require 'rubygems'
-require 'libxml'
 
 module Atom
-  class Container
-    include LibXML
+  class Container < Element
 
     # Container Elements
     #   The "atom:feed" Element
@@ -40,10 +37,6 @@ module Atom
     #    The "atom:title" Element
     #    The "atom:updated" Element
     
-    NAMESPACES =  %w[ atom:http://www.w3.org/2005/Atom ]  
-
-    ELEMENT_DEFAULTS = {:type => :simple, :xpath => "//atom:feed/atom:$KEY$", :link? => false}
-
     ELEMENTS = {
       :atom_id        => { :xpath => '//atom:feed/atom:id'},
       :title          => {},
@@ -71,54 +64,10 @@ module Atom
     end
 
     def initialize(document)
-      @document = document
+      @document = document  
       define_element_accessors(ELEMENTS)
     end
-
-    def define_element_accessors(elements)
-      elements.each do |name, overrides|
-        values = ELEMENT_DEFAULTS.merge(overrides)
-        eval(%{
-          def #{name.to_s}
-            #{method_for_element(name,values)}
-          end
-        })
-      end
-    end
-        
-    def method_for_element(name,values)
-      "#{extract_method(values[:type])}(\"#{xpath_for_element(name,values[:xpath])}\")#{xpath_for_attribute(values[:attribute])}"
-    end
     
-    def xpath_for_element(name,xpath)
-      xpath.gsub(/\$KEY\$/,name.to_s)      
-    end
-                        
-    def xpath_for_attribute(attribute)
-      attribute ? ".first.attributes[\"#{attribute}\"]" : ''
-    end
-    
-    def extract_method(type)
-      type == :compound ? 'extract' : 'extract_content'
-    end
-    
-    def value
-      content
-    end
-
-    def value=(string)
-      content = string
-    end  
-    
-    def extract(xpath)
-      xtract = @document.find(xpath, NAMESPACES) 
-      (xtract.nil? or xtract.empty?) ? [XML::Node.new('')] : xtract
-    end
-
-    def extract_content(xpath)
-      extract(xpath)[0].content.strip
-    end
-
   end
   
 end
