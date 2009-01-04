@@ -16,12 +16,8 @@ describe "Atom::Element" do
       rescue UnknownAttribute => e
         @message = e.message
         true
-      rescue 
-        raise "BYE!"
-        false
       end 
     @error.should be_true
-    @message.should_not be_nil
     @message.should == "Method: element_does_not_exist! - does not exist in scope"  
   end
 
