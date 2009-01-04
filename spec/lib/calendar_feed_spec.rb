@@ -36,15 +36,15 @@ describe CalendarFeed do
     end
 
     describe "author" do
-      it "should have author" do
+      it "should have #author" do
         @calendar_feed.author.should_not be_nil
       end
     
-      it "should have author_name" do
+      it "should have #author_name" do
         @calendar_feed.author_name.should == "Calendar Maven"
       end
     
-      it "should have author_email" do
+      it "should have #author_email" do
         @calendar_feed.author_email.should == "calendar.maven@gmail.com"
       end
     end
@@ -58,26 +58,27 @@ describe CalendarFeed do
      end
      
     describe "links" do
-      it "should have an alternate link" do
+      it "should have an #alternate_link" do
         @calendar_feed.alternate_link.should == 'http://www.google.com/calendar/embed?src=calendar.maven@gmail.com'
       end
       
-      it "should have a feed link" do
+      it "should have a #feed_link" do
         @calendar_feed.feed_link.should == 'http://www.google.com/calendar/feeds/calendar.maven%40gmail.com/private/full'
       end
 
-      it "should have a post link" do
+      it "should have a #post_link" do
         @calendar_feed.post_link.should == 'http://www.google.com/calendar/feeds/calendar.maven%40gmail.com/private/full'
       end
 
-      it "should have a batch link" do
+      it "should have a #batch_link" do
         @calendar_feed.batch_link.should == 'http://www.google.com/calendar/feeds/calendar.maven%40gmail.com/private/full/batch'
       end
       
+      it "should have a #self_link" do
+        @calendar_feed.self_link.should == 'http://www.google.com/calendar/feeds/calendar.maven%40gmail.com/private/full?max-results=25'
+      end
+      
     end 
-
-    #  <link rel='self' type='application/atom+xml'
-    #  href='http://www.google.com/calendar/feeds/calendar.maven%40gmail.com/private/full?max-results=25' />
 
     #  <openSearch:totalResults>12</openSearch:totalResults>
 

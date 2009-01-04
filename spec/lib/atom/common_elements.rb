@@ -1,8 +1,4 @@
-describe "common Atom elements", :shared => true do
-  before(:all) do
-    @feed = Atom::Container.file("spec/fixtures/feeds/smallcalendars.xml")
-  end
-  
+describe "common Atom elements", :shared => true do  
   it "should have a #title for the feed" do
     @feed.title.should == "Calendar Maven's Calendar List"
   end

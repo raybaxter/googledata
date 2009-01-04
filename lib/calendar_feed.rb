@@ -1,11 +1,11 @@
 class CalendarFeed < Atom::Container
   
-  LOCAL_ELEMENTS = {
+  ELEMENTS = {
     :batch_link       => {:type => :compound, :xpath => '//atom:feed/atom:link[@rel=\"http://schemas.google.com/g/2005#batch\"]', :attribute => "href"},
-    }
+  }
   
-  def local_elements
-    Atom::Container::ELEMENTS.merge(LOCAL_ELEMENTS)
+  def elements_for_accessors
+    super.merge(ELEMENTS)
   end
-
+  
 end

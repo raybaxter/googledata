@@ -10,9 +10,29 @@ module Atom
     ELEMENT_DEFAULTS = {:type => :simple, :xpath => "//atom:feed/atom:$KEY$", :link? => false}
     
     ELEMENTS = {
-      :atom_id        => { :xpath => '//atom:feed/atom:id'},
+      :atom_id          => { :xpath => '//atom:feed/atom:id'},
+      :title            => {},
+      :subtitle         => {},
+      :updated          => {},
+      :published        => {:xpath => '//atom:feed/atom:published'},
+
+      :generator        => {},
+      :generator_uri    => {:type => :compound, :xpath => '//atom:feed/atom:generator', :attribute => "uri"},
+      :generator_version=> {:type => :compound, :xpath => '//atom:feed/atom:generator', :attribute => "version"},    
+
+      :author           => {},
+      :author_name      => {:xpath => '//atom:feed/atom:author/atom:name'},
+      :author_email     => {:xpath => '//atom:feed/atom:author/atom:email'},
+
+      :links            => {:type => :compound, :xpath => "//atom:feed/atom:link"},
+      :entries          => {:type => :compound, :xpath => "//atom:feed/atom:entry"},
+                        
+      :category         => {},
+      :category_term    => {:type => :compound, :xpath => '//atom:feed/atom:category', :attribute => "term"},
+      :category_scheme  => {:type => :compound, :xpath => '//atom:feed/atom:category', :attribute => "scheme"},
+      :category_label   => {:type => :compound, :xpath => '//atom:feed/atom:category', :attribute => "label"},      
     }
-    
+        
     if false
       # Container Elements
       #   The "atom:feed" Element
@@ -51,15 +71,19 @@ module Atom
 
     end
     
-    def initialize(name, content=nil, namespace=nil)
-      super    
-      namespaces.namespace = LibXML::XML::Namespace.new(self,'',Atom::NAMESPACE)
+    def self.file(file_name)
+      self.new(XML::Parser.file(file_name).parse)
     end
-
-    def value
-      content
+    
+    def initialize(document)
+      @document = document
+      define_element_accessors(elements_for_accessors)
     end
-
+    
+    def elements_for_accessors
+      ELEMENTS
+    end
+    
     def define_element_accessors(elements)
       elements.each do |name, overrides|
         values = ELEMENT_DEFAULTS.merge(overrides)
@@ -99,8 +123,17 @@ module Atom
       extract(xpath)[0].content.strip
     end
 
-     
+     def method_missing(name)
+       raise UnknownAttribute.new(name)
+     end
 
   end
   
+end
+
+class UnknownAttribute < StandardError
+  attr_reader :message
+  def initialize(name)
+    @message = "Method: #{name} - does not exist in scope"
+  end
 end

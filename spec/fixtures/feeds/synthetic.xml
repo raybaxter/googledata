@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='utf-8'?>
+<feed xmlns='http://www.w3.org/2005/Atom'
+xmlns:openSearch='http://a9.com/-/spec/opensearchrss/1.0/'
+xmlns:batch='http://schemas.google.com/gdata/batch'
+xmlns:gCal='http://schemas.google.com/gCal/2005'
+xmlns:gd='http://schemas.google.com/g/2005'>
+  <id>
+  http://www.google.com/calendar/feeds/calendar.maven%40gmail.com/private/full</id>
+  <published>2008-07-10T07:15:25.000Z</published>
+  <updated>2008-07-18T05:44:51.000Z</updated>
+  <category scheme='http://schemas.google.com/g/2005#kind'
+  term='http://schemas.google.com/g/2005#event' 
+  label='Events'/>
+  <title type='text'>Calendar Maven</title>
+  <subtitle type='text'>Calendar Maven</subtitle>
+  <link rel='alternate' type='text/html'
+  href='http://www.google.com/calendar/embed?src=calendar.maven@gmail.com' />
+  <link rel='http://schemas.google.com/g/2005#feed'
+  type='application/atom+xml'
+  href='http://www.google.com/calendar/feeds/calendar.maven%40gmail.com/private/full' />
+  <link rel='http://schemas.google.com/g/2005#post'
+  type='application/atom+xml'
+  href='http://www.google.com/calendar/feeds/calendar.maven%40gmail.com/private/full' />
+  <link rel='http://schemas.google.com/g/2005#batch'
+  type='application/atom+xml'
+  href='http://www.google.com/calendar/feeds/calendar.maven%40gmail.com/private/full/batch' />
+  <link rel='self' type='application/atom+xml'
+  href='http://www.google.com/calendar/feeds/calendar.maven%40gmail.com/private/full?max-results=25' />
+  <author>
+    <name>Calendar Maven</name>
+    <email>calendar.maven@gmail.com</email>
+  </author>
+  <generator version='1.0' uri='http://www.google.com/calendar'>
+  Google Calendar</generator>
+  <openSearch:totalResults>12</openSearch:totalResults>
+  <openSearch:startIndex>1</openSearch:startIndex>
+  <openSearch:itemsPerPage>25</openSearch:itemsPerPage>
+  <gCal:timezone value='America/Los_Angeles' />
+  <gCal:timesCleaned value='0' />
+  <entry>
+    <id>
+    http://www.google.com/calendar/feeds/calendar.maven%40gmail.com/private/full/f5rq2qeivf7hlj3dnt9lic6r48</id>
+    <published>2008-07-10T07:15:25.000Z</published>
+    <updated>2008-07-10T07:15:25.000Z</updated>
+    <category scheme='http://schemas.google.com/g/2005#kind'
+    term='http://schemas.google.com/g/2005#event' 
+    label='Event'/>
+    <title type='text'>Multiple When Test</title>
+    <content type='text'>Hi mom!</content>
+    <link rel='alternate' type='text/html'
+    href='http://www.google.com/calendar/event?eid=ZjVycTJxZWl2ZjdobGozZG50OWxpYzZyNDggY2FsZW5kYXIubWF2ZW5AbQ'
+    title='alternate' />
+    <link rel='self' type='application/atom+xml'
+    href='http://www.google.com/calendar/feeds/calendar.maven%40gmail.com/private/full/f5rq2qeivf7hlj3dnt9lic6r48' />
+    <link rel='edit' type='application/atom+xml'
+    href='http://www.google.com/calendar/feeds/calendar.maven%40gmail.com/private/full/f5rq2qeivf7hlj3dnt9lic6r48/63351357325' />
+    <author>
+      <name>Calendar Maven</name>
+      <email>calendar.maven@gmail.com</email>
+    </author>
+    <gd:comments>
+      <gd:feedLink href='http://www.google.com/calendar/feeds/calendar.maven%40gmail.com/private/full/f5rq2qeivf7hlj3dnt9lic6r48/comments' />
+    </gd:comments>
+    <gd:eventStatus value='http://schemas.google.com/g/2005#event.confirmed' />
+    <gd:visibility value='http://schemas.google.com/g/2005#event.default' />
+    <gd:transparency value='http://schemas.google.com/g/2005#event.opaque' />
+    <gCal:uid value='f5rq2qeivf7hlj3dnt9lic6r48@google.com' />
+    <gCal:sequence value='0' />
+    <gd:when startTime='2008-07-30T10:00:00.000-07:00'
+    endTime='2008-07-30T10:01:00.000-07:00' />
+    <gd:who rel='http://schemas.google.com/g/2005#event.organizer'
+    valueString='Calendar Maven'
+    email='calendar.maven@gmail.com' />
+    <gd:where />
+  </entry>
+</feed>
