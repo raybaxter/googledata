@@ -1,6 +1,6 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require File.dirname(__FILE__) + '/../../spec_helper'
 
-describe Service do
+describe GData::Service do
   
   def observed_responses_to_bad_logins
     [
@@ -10,7 +10,7 @@ describe Service do
   end
   
   it "should initialize" do
-    Service.new("user","password").should_not be_nil
+    GData::Service.new("user","password").should_not be_nil
   end
   
   describe "#authentication with valid credentials" do
@@ -20,7 +20,7 @@ describe Service do
     end
 
     before(:each) do
-      @service = Service.new('calendar.maven','complic*')
+      @service = GData::Service.new('calendar.maven','complic*')
     end
       
     it "should client_authenticate" do
@@ -43,7 +43,7 @@ describe Service do
   describe "#authentication with valid user and invalid password" do
     
     it "should not client_authenticate" do
-      service = Service.new("calendar.maven",'password')
+      service = GData::Service.new("calendar.maven",'password')
       observed_responses_to_bad_logins.should include(service.client_authenticate)
      end
   end
@@ -55,7 +55,7 @@ describe Service do
     end
 
     it "should respond with a known error message" do
-      service = Service.new("not_a_valid_user#{Time.now.to_i}",'password')
+      service = GData::Service.new("not_a_valid_user#{Time.now.to_i}",'password')
       observed_responses_to_bad_logins.should include(service.client_authenticate)
     end
         
@@ -64,7 +64,7 @@ describe Service do
   describe "#error_message_from" do
     
     before(:all) do
-      @service = Service.new("user","password")
+      @service = GData::Service.new("user","password")
     end
         
     it "should take a simple string and return a string value" do
@@ -77,85 +77,20 @@ describe Service do
     
   end
     
-  describe "#g_request" do
+  describe "#request" do
     
     before(:all) do
-      @connection = Connection.stub!(:new)
-      @service = Service.new("user","password")
+      @connection = GData::Connection.stub!(:new)
+      @service = GData::Service.new("user","password")
     end
 
     it "should call @connection.get" do
       pending("Better stubbing")
       @connection.should_receive(:get).with("/").and_return(Net::HTTPSuccess.new)
-      @service.g_request("GET","http://www.example.com/")
+      @service.request("GET","http://www.example.com/")
     end
     
   end
 
 end
 
-describe Connection do
-  
-  it "should inherit from Net::HTTPS" do
-    Connection.superclass == "Net::HTTPS"
-  end
-  
-  it "should initalize with hostname" do
-    Connection.new('example.com').should_not be_nil
-  end
-  
-  it "should set use_ssl to true" do
-    Connection.new('example.com').use_ssl.should be_true
-  end
-  
-  it "should allow setting the port" do
-    Connection.new('example.com',1234).port.should == 1234
-  end
-  
-  it "should use the default ca_file" do
-    Connection.new('example.com').ca_file.should == 'config/curl-ca-bundle.crt'
-  end
-  
-  it "should allow setting the ca_file in the environment" do
-    ENV['ca_file'] = '09876'
-    Connection.new('example.com').ca_file.should == '09876'
-    ENV.delete('ca_file') # Otherwise breaks if tests run in reverse!
-  end  
-  
-  it "should warn if the ca_file is not found unless it was nil" do
-    pending("Checking on change of $stderr")
-    ca_file = 'sakj'
-    Object.should_receive(:warn, "No certificate file. Expected #{ca_file} to exist. Continuing...")
-    Connection.new('example.com',123,ca_file)
-  end
-
-  it "should not warn if the ca_file is not found if location is nil" do
-    pending("Checking on change of $stderr")
-    pending("passes without reason")
-    $stderr = StringIO.new
-    lambda { Connection.new('example.com',123,nil)}.should_not change($stderr,:size)
-  end
-  
-  it "should allow setting debug_output" do
-    Connection.new('example.com').set_debug_output(true).should be_true
-    Connection.new('example.com').set_debug_output($stderr).should == $stderr
-  end
-  
-end
-
-describe GDataException do
-  
-  it "should inherit from StandardError" do
-    GDataException.superclass == StandardError
-  end
-
-  it "should initialize with a string" do
-    GDataException.new("string").should_not be_nil
-  end
-  
-  it "should return passed in string as #message" do
-    string = "Hi Mom"
-    GDataException.new(string).message.should == string
-  end
-    
-end

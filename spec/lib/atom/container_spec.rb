@@ -6,11 +6,6 @@ describe Atom::Container do
     @feed = Atom::Container.file('spec/fixtures/feeds/smallcalendars.xml')
   end
   
-  xit "should have a default namespace of atom" do
-    # p @feed.namespace
-    # @feed.namespace.should == 'http://www.w3.org/2005/Atom'
-  end
-  
   it_should_behave_like "common Atom elements"
 
   describe "links" do

@@ -1,6 +1,6 @@
 module Atom
 
-  NAMESPACE = %q[ atom:http://www.w3.org/2005/Atom ]
+  # NAMESPACE = %q[ atom:http://www.w3.org/2005/Atom ]
   NAMESPACES = %w[ atom:http://www.w3.org/2005/Atom ]
 
   class Element < LibXML::XML::Node
@@ -87,9 +87,6 @@ module Atom
     def define_element_accessors(elements)
       elements.each do |name, overrides|
         values = ELEMENT_DEFAULTS.merge(overrides)
-        if name == :category_scheme and false
-          p method_for_element(name,values)
-        end
         eval(%{
           def #{name.to_s}
             #{method_for_element(name,values)}
@@ -124,6 +121,7 @@ module Atom
     end
 
      def method_missing(name)
+       # Only used to produce nicer debugging error messages
        raise UnknownAttribute.new(name)
      end
 
@@ -136,4 +134,5 @@ class UnknownAttribute < StandardError
   def initialize(name)
     @message = "Method: #{name} - does not exist in scope"
   end
+  
 end

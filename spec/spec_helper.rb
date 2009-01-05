@@ -1,13 +1,7 @@
 require 'rubygems'
 require 'libxml'
 
+require 'lib/gdata'
 require 'lib/atom'
+require 'lib/gcal'
 
-require "lib/calendars_feed"
-require 'lib/calendar_feed'
-
-require "lib/gdata_service"
-
-# Dir["lib/**/*.rb"].each do |file|
-#  require file
-# end

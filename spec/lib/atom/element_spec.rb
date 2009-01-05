@@ -5,6 +5,13 @@ describe "Atom::Element" do
   before(:each) do
     @feed = Atom::Element.file('spec/fixtures/feeds/smallcalendars.xml')
   end
+  
+  it "should have a default namespace of atom" do
+    pending("Me understanding how this is actually supposed to work, or if it is necessary!")
+    # @feed.namespaces.default_prefix.should == 'atom'
+    # @feed.namespaces.each {|n| p n}
+    # .should == 'http://www.w3.org/2005/Atom'
+  end
 
   it_should_behave_like "common Atom elements"
   

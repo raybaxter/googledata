@@ -1,11 +1,12 @@
-require File.dirname(__FILE__) + '/../spec_helper'
+require File.dirname(__FILE__) + '/../../spec_helper'
 
-describe CalendarFeed do
+describe GCal::CalendarFeed do
   before(:all) do
-    @calendar_feed = CalendarFeed.file('spec/fixtures/feeds/calendar.maven.xml')
+    @calendar_feed = GCal::CalendarFeed.file('spec/fixtures/feeds/calendar.maven.xml')
   end
+
   it "should inherit from Element" do
-    CalendarFeed.superclass.should == Atom::Container
+    GCal::CalendarFeed.superclass.should == Atom::Container
   end
     
   describe "Atom properties" do
@@ -79,18 +80,30 @@ describe CalendarFeed do
       end
       
     end 
+    
+    describe "openSearch namespace" do
+      it "should have #totalResults" do
+        @calendar_feed.totalResults.should == '12'        
+      end
+      
+      it "should have #startIndex" do
+        @calendar_feed.startIndex.should == '1'
+      end
 
-    #  <openSearch:totalResults>12</openSearch:totalResults>
+      it "should have #itemsPerPage" do
+        @calendar_feed.itemsPerPage.should == '25'
+      end
+      
+    end
 
-    #  <openSearch:startIndex>1</openSearch:startIndex>
-
-    #  <openSearch:itemsPerPage>25</openSearch:itemsPerPage>
-
-    #  <gCal:timezone value='America/Los_Angeles' />
+    describe "gCal namespace" do
+      it "should have #timezone_value" do
+        @calendar_feed.timezone_value.should == 'America/Los_Angeles'
+        
+      end
+    end
 
     #  <gCal:timesCleaned value='0' />
   end
-  
-  
   
 end
