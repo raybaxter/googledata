@@ -13,8 +13,13 @@ describe "Atom::Element" do
     # .should == 'http://www.w3.org/2005/Atom'
   end
 
+  
   it_should_behave_like "common Atom elements"
   
+  it "should have #content" do
+    Atom::Element.file('spec/fixtures/feeds/synthetic.xml').content.should == 'Hi mom!'
+  end
+
   it "should catch method missing errors and raise reasonable errors for debugging" do
     @message = nil
     @error = begin

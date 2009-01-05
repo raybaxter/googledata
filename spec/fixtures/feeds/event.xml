@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<entry xmlns='http://www.w3.org/2005/Atom'
+xmlns:batch='http://schemas.google.com/gdata/batch'
+xmlns:gCal='http://schemas.google.com/gCal/2005'
+xmlns:gd='http://schemas.google.com/g/2005'
+gd:etag='"F0UNQAJHeSp7ImA6WhVX"'>
+  <id>
+  http://www.google.com/calendar/feeds/default/events/upd56n8tetsuor73bas6v923ek</id>
+  <published>2008-05-31T00:41:07.000Z</published>
+  <updated>2008-05-31T00:41:07.000Z</updated>
+  <app:edited xmlns:app='http://www.w3.org/2007/app'>
+  2008-05-31T00:41:07.000Z</app:edited>
+  <category scheme='http://schemas.google.com/g/2005#kind'
+  term='http://schemas.google.com/g/2005#event' />
+  <title>Time Zone Test</title>
+  <content>Hi mom!</content>
+  <link rel='alternate' type='text/html'
+  href='http://www.google.com/calendar/event?eid=dXBkNTZuOHRldHN1b3I3M2JhczZ2OTIzZWsgY2FsZW5kYXIubWF2ZW5AbQ'
+  title='alternate' />
+  <link rel='self' type='application/atom+xml'
+  href='http://www.google.com/calendar/feeds/default/private/full/upd56n8tetsuor73bas6v923ek?v=2' />
+  <link rel='edit' type='application/atom+xml'
+  href='http://www.google.com/calendar/feeds/default/private/full/upd56n8tetsuor73bas6v923ek?v=2' />
+  <author>
+    <name>Calendar Maven</name>
+    <email>calendar.maven@gmail.com</email>
+  </author>
+  <gd:comments>
+    <gd:feedLink href='http://www.google.com/calendar/feeds/default/private/full/upd56n8tetsuor73bas6v923ek/comments?v=2' />
+  </gd:comments>
+  <gd:eventStatus value='http://schemas.google.com/g/2005#event.confirmed' />
+  <gd:visibility value='http://schemas.google.com/g/2005#event.default' />
+  <gd:transparency value='http://schemas.google.com/g/2005#event.opaque' />
+  <gCal:uid value='upd56n8tetsuor73bas6v923ek@google.com' />
+  <gCal:sequence value='0' />
+  <gd:when startTime='2008-05-30T10:00:00.000-07:00'
+  endTime='2008-05-30T10:01:00.000-07:00'>
+    <gd:reminder minutes='10' method='alert' />
+  </gd:when>
+  <gd:who rel='http://schemas.google.com/g/2005#event.organizer'
+  valueString='Calendar Maven' email='calendar.maven@gmail.com' />
+  <gd:where />
+</entry>

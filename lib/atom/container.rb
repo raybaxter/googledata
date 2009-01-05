@@ -37,10 +37,10 @@ module Atom
     #    The "atom:updated" Element
     
     ELEMENTS = Atom::Element::ELEMENTS.merge({
-      :alternate_link   => {:type => :compound, :xpath => '//atom:feed/atom:link[@rel=\"alternate\"]', :attribute => "href"}, 
-      :feed_link        => {:type => :compound, :xpath => '//atom:feed/atom:link[@rel=\"http://schemas.google.com/g/2005#feed\"]', :attribute => "href"},
-      :post_link        => {:type => :compound, :xpath => '//atom:feed/atom:link[@rel=\"http://schemas.google.com/g/2005#post\"]', :attribute => "href"},
-      :self_link        => {:type => :compound, :xpath => '//atom:feed/atom:link[@rel=\"self\"]', :attribute => "href"},
+      :alternate_link   => {:type => :compound, :xpath => '//atom:$CONTAINER$/atom:link[@rel=\"alternate\"]', :attribute => "href"}, 
+      :feed_link        => {:type => :compound, :xpath => '//atom:$CONTAINER$/atom:link[@rel=\"http://schemas.google.com/g/2005#feed\"]', :attribute => "href"},
+      :post_link        => {:type => :compound, :xpath => '//atom:$CONTAINER$/atom:link[@rel=\"http://schemas.google.com/g/2005#post\"]', :attribute => "href"},
+      :self_link        => {:type => :compound, :xpath => '//atom:$CONTAINER$/atom:link[@rel=\"self\"]', :attribute => "href"},
     })
     
     attr_reader :document

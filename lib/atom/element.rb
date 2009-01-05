@@ -1,36 +1,36 @@
 module Atom
 
-  # NAMESPACE = %q[ atom:http://www.w3.org/2005/Atom ]
   NAMESPACES = %w[ atom:http://www.w3.org/2005/Atom ]
 
   class Element < LibXML::XML::Node
     
     include LibXML
     
-    ELEMENT_DEFAULTS = {:type => :simple, :xpath => "//atom:feed/atom:$KEY$", :link? => false}
+    ELEMENT_DEFAULTS = { :type => :simple, :xpath => "//atom:$CONTAINER$/atom:$KEY$" }
     
     ELEMENTS = {
-      :atom_id          => { :xpath => '//atom:feed/atom:id'},
-      :title            => {},
-      :subtitle         => {},
-      :updated          => {},
-      :published        => {:xpath => '//atom:feed/atom:published'},
+      :atom_id          => { :xpath => '//atom:$CONTAINER$/atom:id' },
+      :title            => { },
+      :subtitle         => { },
+      :content          => { },
+      :updated          => { },
+      :published        => { :xpath => '//atom:$CONTAINER$/atom:published' },
 
-      :generator        => {},
-      :generator_uri    => {:type => :compound, :xpath => '//atom:feed/atom:generator', :attribute => "uri"},
-      :generator_version=> {:type => :compound, :xpath => '//atom:feed/atom:generator', :attribute => "version"},    
+      :generator        => { },
+      :generator_uri    => { :type => :compound, :xpath => '//atom:feed/atom:generator', :attribute => "uri" },
+      :generator_version=> { :type => :compound, :xpath => '//atom:feed/atom:generator', :attribute => "version" },    
 
-      :author           => {},
-      :author_name      => {:xpath => '//atom:feed/atom:author/atom:name'},
-      :author_email     => {:xpath => '//atom:feed/atom:author/atom:email'},
+      :author           => { },
+      :author_name      => { :xpath => '//atom:$CONTAINER$/atom:author/atom:name' },
+      :author_email     => { :xpath => '//atom:$CONTAINER$/atom:author/atom:email' },
 
-      :links            => {:type => :compound, :xpath => "//atom:feed/atom:link"},
-      :entries          => {:type => :compound, :xpath => "//atom:feed/atom:entry"},
+      :links            => { :type => :compound, :xpath => "//atom:$CONTAINER$/atom:link" },
+      :entries          => { :type => :compound, :xpath => "//atom:$CONTAINER$/atom:entry" },
                         
-      :category         => {},
-      :category_term    => {:type => :compound, :xpath => '//atom:feed/atom:category', :attribute => "term"},
-      :category_scheme  => {:type => :compound, :xpath => '//atom:feed/atom:category', :attribute => "scheme"},
-      :category_label   => {:type => :compound, :xpath => '//atom:feed/atom:category', :attribute => "label"},      
+      :category         => { },
+      :category_term    => { :type => :compound, :xpath => '//atom:$CONTAINER$/atom:category', :attribute => "term" },
+      :category_scheme  => { :type => :compound, :xpath => '//atom:$CONTAINER$/atom:category', :attribute => "scheme" },
+      :category_label   => { :type => :compound, :xpath => '//atom:$CONTAINER$/atom:category', :attribute => "label" },      
     }
         
     if false
@@ -84,6 +84,10 @@ module Atom
       ELEMENTS
     end
     
+    def container_for_accessors
+      'feed'
+    end
+    
     def define_element_accessors(elements)
       elements.each do |name, overrides|
         values = ELEMENT_DEFAULTS.merge(overrides)
@@ -100,7 +104,7 @@ module Atom
     end
     
     def xpath_for_element(name,xpath)
-      xpath.gsub(/\$KEY\$/,name.to_s)      
+      xpath.gsub(/\$CONTAINER\$/,container_for_accessors).gsub(/\$KEY\$/,name.to_s)      
     end
                         
     def xpath_for_attribute(attribute)

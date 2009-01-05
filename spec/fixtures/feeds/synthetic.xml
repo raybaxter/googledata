@@ -13,6 +13,7 @@ xmlns:gd='http://schemas.google.com/g/2005'>
   label='Events'/>
   <title type='text'>Calendar Maven</title>
   <subtitle type='text'>Calendar Maven</subtitle>
+  <content>Hi mom!</content>
   <link rel='alternate' type='text/html'
   href='http://www.google.com/calendar/embed?src=calendar.maven@gmail.com' />
   <link rel='http://schemas.google.com/g/2005#feed'
