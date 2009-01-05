@@ -1,5 +1,5 @@
 module GCal
-  class CalendarFeed < Atom::Container
+  class Calendar < Atom::Container
   
     ELEMENTS = {
       :batch_link       => {:type => :compound, :xpath => '//atom:feed/atom:link[@rel=\"http://schemas.google.com/g/2005#batch\"]', :attribute => "href"},

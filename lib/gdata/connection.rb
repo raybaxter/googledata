@@ -8,6 +8,7 @@ module GData
 
   		self.ca_file = ENV['ca_file'] ? ENV['ca_file'] : "config/curl-ca-bundle.crt"
   		self.use_ssl = true
+
   		if File.exists?(ca_file)
   			self.verify_mode = OpenSSL::SSL::VERIFY_PEER
   			self.verify_depth = 5
